@@ -24,13 +24,12 @@ namespace Project
         }
         public static string reciveUserNumbers()
         {
-            Console.WriteLine("Pleaes enter numbers and put ',' between them without any spaces:");
+            Console.WriteLine("Pleaes enter at least three numbers and put ',' between them without any spaces:");
             string userInput = Console.ReadLine();
             return userInput;
         }
         public static List<int> procecingUserInput(string userInput)
         {
-            //string stringNumbers = "123456789";
             List<int> listOfNumbers = new List<int>();
             foreach (var charter in userInput.Split(","))
             {
@@ -137,21 +136,23 @@ namespace Project
             List<int> listOfInts = new List<int>();
             while (flag)
             {
-                
                 string userChoice = Functions.mainMenu();
+                Console.WriteLine();
                 char fixedChoice;
                 try
                 {
-                    fixedChoice = char.Parse(userChoice.ToString().ToLower());
+                    fixedChoice = char.Parse(userChoice.ToLower());
                 }
                 catch
                 {
                     Console.WriteLine("Wrong Choice");
+                    Console.WriteLine();
                     continue;
                 }
                 if (sign == false && fixedChoice != 'a' && fixedChoice != 'j')
                 {
                     Console.WriteLine("Choose 'a' First");
+                    Console.WriteLine();
                     continue;
                 }
                 switch (fixedChoice)
@@ -160,14 +161,18 @@ namespace Project
                         try
                         {
                             listOfInts = Functions.procecingUserInput(Functions.reciveUserNumbers());
+                            Console.WriteLine();
                         }
                         catch
                         {
+                            Console.WriteLine("Please enter only numbers");
+                            Console.WriteLine();
                             continue;
                         }
                         if (listOfInts.Count < 3)
                         {
                             Console.WriteLine("you have to give at least 3 numbers");
+                            Console.WriteLine();
                             continue;
                         }
                         sign = true;
@@ -175,34 +180,42 @@ namespace Project
 
                     case 'b':
                         Functions.printSerie(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'c':
                         Functions.printReversedSerie(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'd':
                         Functions.printInOrder(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'e':
                         Functions.printMax(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'f':
                         Functions.printMin(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'g':
                         Functions.printAverage(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'h':
                         Functions.printLen(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'i':
                         Functions.printSum(listOfInts);
+                        Console.WriteLine();
                         break;
 
                     case 'j':
@@ -211,6 +224,7 @@ namespace Project
 
                     default:
                         Console.WriteLine("You Enetred Wrong Input");
+                        Console.WriteLine();
                         break;
                 }
             }
