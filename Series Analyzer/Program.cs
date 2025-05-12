@@ -6,7 +6,7 @@ namespace Project
 {
     class Functions()
     {
-        public static char mainMenu()
+        public static string mainMenu()
         {
             Console.WriteLine("Plaese choose from the options below:");
             Console.WriteLine("a. Input a Series. (Replace the current series)");
@@ -19,16 +19,7 @@ namespace Project
             Console.WriteLine("h. Display the Number of elements in the series.");
             Console.WriteLine("i. Display the Sum of the series.");
             Console.WriteLine("j. Exit.");
-            char userOption;
-            try
-            {
-                userOption = char.Parse(Console.ReadLine());
-
-            }
-            catch (Exception e)
-            {
-                throw e.InnerException;
-            }
+            string userOption = Console.ReadLine();
             return userOption;
         }
         public static string reciveUserNumbers()
@@ -37,60 +28,63 @@ namespace Project
             string userInput = Console.ReadLine();
             return userInput;
         }
-        public static List<Int32> procecingUserInput(string userInput)
+        public static List<int> procecingUserInput(string userInput)
         {
-            string stringNumbers = "123456789";
-            List<Int32> listOfNumbers = new List<int>();
+            //string stringNumbers = "123456789";
+            List<int> listOfNumbers = new List<int>();
             foreach (var charter in userInput.Split(","))
             {
-                listOfNumbers.Add(Int32.Parse(charter));
+                listOfNumbers.Add(int.Parse(charter));
             }
             return listOfNumbers;
         }
-        public static void printSerie(List<Int32> listOfInts)
+        public static void printSerie(List<int> listOfInts)
         {
+
             foreach (var item in listOfInts)
             {
                 Console.WriteLine(item);
             }
         }
-        public static void printReversedSerie(List<Int32> listOfInts)
+        public static void printReversedSerie(List<int> listOfInts)
         {
-            List<Int32> tempList = new List<int>();
-            foreach (Int32 item in listOfInts)
+            for (int i = listOfInts.Count-1; i > -1; i--)
+            {
+                Console.WriteLine(listOfInts[i]);
+            }
+        }
+        public static void printInOrder(List<int> listOfInts)
+        {
+            List<int> tempList = new List<int>();
+            List<int> secondTempList = new List<int>();
+            foreach (int item in listOfInts)
             {
                 tempList.Add(item);
             }
-            foreach (var item in tempList)
+            int counter = tempList.Count;
+            while (counter > 0)
             {
-                Console.WriteLine(item);
-            }
-        }
-        public static void printInOrder(List<Int32> listOfInts)
-        {
-            List<Int32> tempList = new List<int>();
-            int lowest = 0;
-            while (listOfInts.Count > 0)
-            {
-                for (int i = 0; i < listOfInts.Count; i++)
+                int lowest = tempList[0];
+                for (int i = 0; i < tempList.Count; i++)
                 {
-                    if (listOfInts[i] < lowest)
+                    if (tempList[i] < lowest)
                     {
-                        lowest = listOfInts[i];
+                        lowest = tempList[i];
                     }
                 }
-                listOfInts.Remove(lowest);
-                tempList.Add(lowest);
+                tempList.Remove(lowest);
+                secondTempList.Add(lowest);
+                counter--;
             }
-            foreach (Int32 item in tempList)
+            foreach (int item in secondTempList)
             {
                 Console.WriteLine(item);
             }
         }
-        public static void printMax(List<Int32> listOfInts)
+        public static void printMax(List<int> listOfInts)
         {
-            Int32 max = 0;
-            foreach (Int32 item in listOfInts)
+            int max = 0;
+            foreach (int item in listOfInts)
             {
                 if (max < item)
                 {
@@ -99,10 +93,10 @@ namespace Project
             }
             Console.WriteLine(max);
         }
-        public static void printMin(List<Int32> listOfInts)
+        public static void printMin(List<int> listOfInts)
         {
-            Int32 min = listOfInts[0];
-            foreach (Int32 item in listOfInts)
+            int min = listOfInts[0];
+            foreach (int item in listOfInts)
             {
                 if (min > item)
                 {
@@ -111,23 +105,23 @@ namespace Project
             }
             Console.WriteLine(min);
         }
-        public static void printAverage(List<Int32> listOfInts)
+        public static void printAverage(List<int> listOfInts)
         {
             int sum = 0;
-            foreach (Int32 item in listOfInts)
+            foreach (int item in listOfInts)
             {
                 sum += item;
             }
             Console.WriteLine(sum/listOfInts.Count);
         }
-        public static void printLen(List<Int32> listOfInts)
+        public static void printLen(List<int> listOfInts)
         {
             Console.WriteLine(listOfInts.Count);
         }
-        public static void printSum(List<Int32> listOfInts)
+        public static void printSum(List<int> listOfInts)
         {
             int sum = 0;
-            foreach (Int32 item in listOfInts)
+            foreach (int item in listOfInts)
             {
                 sum += item;
             }
@@ -138,14 +132,45 @@ namespace Project
     {
         static void Main()
         {
-            while (true)
+            bool sign = false;
+            bool flag = true;
+            List<int> listOfInts = new List<int>();
+            while (flag)
             {
-                List<Int32> listOfInts = new List<int>();
-                char userChoice = Functions.mainMenu();
-                switch (char.Parse(userChoice.ToString().ToLower()))
+                
+                string userChoice = Functions.mainMenu();
+                char fixedChoice;
+                try
+                {
+                    fixedChoice = char.Parse(userChoice.ToString().ToLower());
+                }
+                catch
+                {
+                    Console.WriteLine("Wrong Choice");
+                    continue;
+                }
+                if (sign == false && fixedChoice != 'a' && fixedChoice != 'j')
+                {
+                    Console.WriteLine("Choose 'a' First");
+                    continue;
+                }
+                switch (fixedChoice)
                 {
                     case 'a':
-                         listOfInts = Functions.procecingUserInput(Functions.reciveUserNumbers());
+                        try
+                        {
+                            listOfInts = Functions.procecingUserInput(Functions.reciveUserNumbers());
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                        if (listOfInts.Count < 3)
+                        {
+                            Console.WriteLine("you have to give at least 3 numbers");
+                            continue;
+                        }
+                        sign = true;
                         break;
 
                     case 'b':
@@ -181,7 +206,8 @@ namespace Project
                         break;
 
                     case 'j':
-                        return;
+                        flag = false;
+                        break;
 
                     default:
                         Console.WriteLine("You Enetred Wrong Input");
