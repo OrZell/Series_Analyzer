@@ -42,26 +42,24 @@
         }
 
         //Functions that print the list
-        public static void printSerie(List<int> listOfInts)
+        public static List<int> returnSerie(List<int> listOfInts)
         {
-
-            foreach (var item in listOfInts)
-            {
-                Console.WriteLine(item);
-            }
+            return listOfInts;
         }
 
         //Functions that print the list in revers
-        public static void printReversedSerie(List<int> listOfInts)
+        public static List<int> returnReversedSerie(List<int> listOfInts)
         {
+            List<int> tempList = new List<int>();
             for (int i = listOfInts.Count-1; i > -1; i--)
             {
-                Console.WriteLine(listOfInts[i]);
+                tempList.Add(listOfInts[i]);
             }
+            return tempList;
         }
 
         //Functions that sort the list and print it
-        public static void printInOrder(List<int> listOfInts)
+        public static List<int> returnInOrder(List<int> listOfInts)
         {
             List<int> tempList = new List<int>();
             List<int> secondTempList = new List<int>();
@@ -84,14 +82,11 @@
                 secondTempList.Add(lowest);
                 counter--;
             }
-            foreach (int item in secondTempList)
-            {
-                Console.WriteLine(item);
-            }
+            return secondTempList;
         }
 
         //Functions that print the max number in the list
-        public static void printMax(List<int> listOfInts)
+        public static int returnMax(List<int> listOfInts)
         {
             int max = 0;
             foreach (int item in listOfInts)
@@ -101,11 +96,11 @@
                     max = item;
                 }
             }
-            Console.WriteLine(max);
+            return max;
         }
 
         //Functions that print the min number in the list
-        public static void printMin(List<int> listOfInts)
+        public static int returnMin(List<int> listOfInts)
         {
             int min = listOfInts[0];
             foreach (int item in listOfInts)
@@ -115,35 +110,51 @@
                     min = item;
                 }
             }
-            Console.WriteLine(min);
+            return min;
         }
 
         //Functions that print the average of the list
-        public static void printAverage(List<int> listOfInts)
+        public static int returnAverage(List<int> listOfInts)
         {
             int sum = 0;
             foreach (int item in listOfInts)
             {
                 sum += item;
             }
-            Console.WriteLine(sum/listOfInts.Count);
+            return sum / listOfInts.Count;
         }
 
         //Functions that print the len of the list
-        public static void printLen(List<int> listOfInts)
+        public static int returnLen(List<int> listOfInts)
         {
-            Console.WriteLine(listOfInts.Count);
+            return listOfInts.Count;
         }
 
         //Functions that print the sum of the list
-        public static void printSum(List<int> listOfInts)
+        public static int returnSum(List<int> listOfInts)
         {
             int sum = 0;
             foreach (int item in listOfInts)
             {
                 sum += item;
             }
-            Console.WriteLine(sum);
+            return sum;
+        }
+        public static void printOnScreen(List<int> listOfIns)
+        {
+            for (int i = 0; i < listOfIns.Count; i++)
+            {
+                if (i < listOfIns.Count-1)
+                {
+                    Console.Write(listOfIns[i]);
+                    Console.Write(" ");
+                }
+                else
+                {
+                    Console.WriteLine(listOfIns[i]);
+                    Console.WriteLine();
+                }
+            }
         }
     }
 
@@ -201,42 +212,39 @@
                         break;
 
                     case 'b':
-                        Functions.printSerie(listOfInts);
-                        Console.WriteLine();
+                        Functions.printOnScreen(Functions.returnSerie(listOfInts));
                         break;
 
                     case 'c':
-                        Functions.printReversedSerie(listOfInts);
-                        Console.WriteLine();
+                        Functions.printOnScreen(Functions.returnReversedSerie(listOfInts));
                         break;
 
                     case 'd':
-                        Functions.printInOrder(listOfInts);
-                        Console.WriteLine();
+                        Functions.printOnScreen(Functions.returnInOrder(listOfInts));
                         break;
 
                     case 'e':
-                        Functions.printMax(listOfInts);
+                        Console.WriteLine(Functions.returnMax(listOfInts));
                         Console.WriteLine();
                         break;
 
                     case 'f':
-                        Functions.printMin(listOfInts);
+                        Console.WriteLine(Functions.returnMin(listOfInts));
                         Console.WriteLine();
                         break;
 
                     case 'g':
-                        Functions.printAverage(listOfInts);
+                        Console.WriteLine(Functions.returnAverage(listOfInts));
                         Console.WriteLine();
                         break;
 
                     case 'h':
-                        Functions.printLen(listOfInts);
+                        Console.WriteLine(Functions.returnLen(listOfInts));
                         Console.WriteLine();
                         break;
 
                     case 'i':
-                        Functions.printSum(listOfInts);
+                        Console.WriteLine(Functions.returnSum(listOfInts));
                         Console.WriteLine();
                         break;
 
